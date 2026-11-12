@@ -20,7 +20,8 @@ namespace Muzeu.ConsoleTest
             //TesteazaArtefacte();
             //TesteazaProgram();
             //TesteazaAngajati();
-            TesteazaTururi();
+            //TesteazaTururi();
+            TesteazaVanzari();
 
             Console.WriteLine("\nGata. Apasă o tastă...");
             Console.ReadKey();
@@ -744,6 +745,245 @@ namespace Muzeu.ConsoleTest
                     $"{p.Status} | data vizitei: {p.DataVizita:dd.MM.yyyy HH:mm}");
 
             if (participanti.Count == 0)
+                Console.WriteLine("  (niciun rezultat)");
+        }
+
+        // =====================================================================
+        // TESTE VanzareService
+        // =====================================================================
+        static void TesteazaVanzari()
+        {
+            var service = new VanzareService();
+            var programService = new ProgramService();
+
+            var viziteTest = new List<int>();
+            var feedbackTest = new List<int>();
+            int idVizitatorTest = 0, idTurTest = 0, idTipTest = 0;
+
+            // O zi de marți (10:00-18:00) peste cel puțin o săptămână, care nu e excepție.
+            DateTime zi = DateTime.Today.AddDays(7);
+            while (zi.DayOfWeek != DayOfWeek.Tuesday || programService.GetProgramPentruData(zi).EsteExceptie)
+                zi = zi.AddDays(1);
+
+            // O expoziție deschisă în ziua de test, cu supliment de preț (dacă există).
+            var expozitieCuSupliment = new ExpozitieService().GetActive(zi).FirstOrDefault(e => e.PretSuplimentar > 0);
+
+            try
+            {
+                // ---------------- VIZITATORI ----------------
+                Titlu("V1. Căutare vizitatori după 'marin'");
+                Afiseaza(service.CautaVizitatori("marin"));
+
+                Titlu("V2. Adăugare vizitator");
+                idVizitatorTest = service.AdaugaVizitator(new Vizitatori
+                {
+                    Nume = "Test",
+                    Prenume = "Vizitator",
+                    Email = " Test.Vizitator@Email.ro ",
+                    Telefon = "0744 123 456"
+                });
+                Afiseaza(service.CautaVizitatori("test vizitator"));
+
+                Titlu("V3. Vizitatori cu date greșite (trebuie respinși)");
+                AsteaptaEroare(() => service.AdaugaVizitator(new Vizitatori
+                {
+                    Nume = "",
+                    Prenume = "X",
+                    Email = "ana.marin@email.ro",
+                    Telefon = "12"
+                }));
+                AsteaptaEroare(() => service.AdaugaVizitator(new Vizitatori { Nume = "Fara", Prenume = "Contact" }));
+
+                Titlu("V4. Modificare telefon");
+                var vizitator = service.GetVizitatorById(idVizitatorTest);
+                vizitator.Telefon = "0755 999 888";
+                service.ModificaVizitator(vizitator);
+                Afiseaza(service.CautaVizitatori("test vizitator"));
+
+                // ---------------- TIPURI DE BILET ----------------
+                Titlu("B1. Tipuri de bilet active");
+                foreach (var t in service.GetTipuriBilet())
+                    Console.WriteLine($"  [{t.IdTipBilet}] {t.Afisare}");
+
+                Titlu("B2. Tip nou + tipuri greșite (duplicat, preț negativ)");
+                idTipTest = service.AdaugaTipBilet("Test Grup", 20);
+                Console.WriteLine($"  OK: tip nou cu Id = {idTipTest}");
+                AsteaptaEroare(() => service.AdaugaTipBilet("Adult", 25));
+                AsteaptaEroare(() => service.AdaugaTipBilet("Gratuit special", -1));
+
+                Titlu("B3. Tip dezactivat nu mai poate fi vândut (trebuie respinsă)");
+                service.SeteazaTipBiletActiv(idTipTest, false);
+                AsteaptaEroare(() => service.CalculeazaPret(new CerereVizita().AdaugaBilete(idTipTest, 1)));
+
+                // ---------------- PREȚ ----------------
+                Titlu($"P1. Calcul preț pentru marți {zi:dd.MM.yyyy}");
+                var cererePret = new CerereVizita { DataVizita = zi.AddHours(12) }
+                    .AdaugaBilete(1, 2)          // 2 x Adult, acces general
+                    .AdaugaBilete(2, 1);         // 1 x Elev/Student
+                if (expozitieCuSupliment != null)
+                    cererePret.AdaugaBilete(1, 1, expozitieCuSupliment.IdExpozitie);   // 1 x Adult cu expoziția temporară
+                Afiseaza(service.CalculeazaPret(cererePret));
+
+                // ---------------- VÂNZARE LA CASĂ ----------------
+                Titlu("C1. Vânzare la casă acum (vizitator anonim)");
+                var cerereCasa = new CerereVizita().AdaugaBilete(1, 1).AdaugaBilete(4, 1);   // Adult + Copil
+                if (programService.EsteDeschis(DateTime.Now))
+                {
+                    int idCasa = service.VindeLaCasa(cerereCasa);
+                    viziteTest.Add(idCasa);
+                    Afiseaza(service.GetDetalii(idCasa));
+                }
+                else
+                {
+                    Console.WriteLine("  Muzeul e închis acum, deci vânzarea trebuie respinsă:");
+                    AsteaptaEroare(() => viziteTest.Add(service.VindeLaCasa(cerereCasa)));
+                }
+
+                // ---------------- REZERVĂRI ----------------
+                Titlu("R1. Rezervare fără tur: marți 12:00, 2 x Adult");
+                int idRezervare = service.Rezerva(new CerereVizita
+                {
+                    IdVizitator = idVizitatorTest,
+                    DataVizita = zi.AddHours(12),
+                    Observatii = "rezervare de test"
+                }.AdaugaBilete(1, 2));
+                viziteTest.Add(idRezervare);
+                Afiseaza(service.GetDetalii(idRezervare));
+
+                Titlu("R2. Rezervări greșite (trebuie respinse)");
+                AsteaptaEroare(() => service.Rezerva(new CerereVizita
+                {
+                    IdVizitator = null,
+                    DataVizita = DateTime.Today.AddDays(-1).AddHours(12)
+                }.AdaugaBilete(99, 1).AdaugaBilete(1, 0).AdaugaBilete(1, 1, idExpozitie: 99)));
+                AsteaptaEroare(() => service.Rezerva(new CerereVizita
+                {
+                    IdVizitator = idVizitatorTest,
+                    DataVizita = zi.AddDays(-1).AddHours(12)   // luni: închis
+                }.AdaugaBilete(1, 1)));
+
+                Titlu("R3. Tur de test (5 locuri, supliment 20 lei) + rezervare 3 x Adult și 1 x Student");
+                idTurTest = new TurService().Adauga(new TururiGhidate
+                {
+                    IdExpozitie = 1,
+                    IdGhid = 3,
+                    DataOraInceput = zi.AddHours(11),
+                    DurataMinute = 60,
+                    Limba = "Romana",
+                    NrMaximParticipanti = 5,
+                    PretSuplimentar = 20
+                });
+                int idRezervareTur = service.Rezerva(new CerereVizita { IdVizitator = idVizitatorTest, IdTur = idTurTest }
+                    .AdaugaBilete(1, 3)
+                    .AdaugaBilete(2, 1));
+                viziteTest.Add(idRezervareTur);
+                Afiseaza(service.GetDetalii(idRezervareTur));
+                Console.WriteLine($"  Locuri libere la tur: {new TurService().LocuriLibere(idTurTest)}  (așteptat 1)");
+
+                Titlu("R4. Încă 2 locuri la tur (trebuie respinsă: a rămas doar 1)");
+                AsteaptaEroare(() => viziteTest.Add(service.Rezerva(
+                    new CerereVizita { IdVizitator = idVizitatorTest, IdTur = idTurTest }.AdaugaBilete(1, 2))));
+
+                // ---------------- STĂRI ----------------
+                Titlu("S1. Confirmare rezervare + a doua confirmare (trebuie respinsă)");
+                service.Confirma(idRezervare);
+                Console.WriteLine($"  Status: {service.GetDetalii(idRezervare).Status}");
+                AsteaptaEroare(() => service.Confirma(idRezervare));
+
+                Titlu("S2. Marcare ca efectuată înainte de ziua vizitei (trebuie respinsă)");
+                AsteaptaEroare(() => service.MarcheazaEfectuata(idRezervare));
+
+                Titlu("S3. Anularea rezervării la tur (eliberează locurile)");
+                service.Anuleaza(idRezervareTur, "vizitatorul nu mai poate veni");
+                var anulata = service.GetDetalii(idRezervareTur);
+                Console.WriteLine($"  Status: {anulata.Status} | Observații: {anulata.Observatii}");
+                Console.WriteLine($"  Locuri libere la tur: {new TurService().LocuriLibere(idTurTest)}  (așteptat 5)");
+                AsteaptaEroare(() => service.Anuleaza(idRezervareTur, null));
+
+                Titlu($"S4. Rezervările pentru marți {zi:dd.MM.yyyy}");
+                Afiseaza(service.GetRezervariPentruZi(zi));
+
+                Titlu("S5. Istoricul vizitatorului de test");
+                Afiseaza(service.GetVizite(idVizitator: idVizitatorTest));
+
+                // ---------------- FEEDBACK ----------------
+                Titlu("F1. Feedback pentru vizita 2 (efectuată), expoziția 2");
+                feedbackTest.Add(service.AdaugaFeedback(2, 2, 4, "Picturi frumoase, iluminat bun."));
+                Console.WriteLine("  OK");
+
+                Titlu("F2. Feedback greșit (trebuie respins)");
+                AsteaptaEroare(() => feedbackTest.Add(service.AdaugaFeedback(2, 2, 5, "Din nou")));    // duplicat
+                AsteaptaEroare(() => feedbackTest.Add(service.AdaugaFeedback(3, null, 7, null)));      // vizită rezervată + notă 7
+
+                Titlu("F3. Tot feedback-ul");
+                foreach (var f in service.GetFeedback())
+                    Console.WriteLine($"  {f.DataFeedback:dd.MM.yyyy} | {f.Stele} | {f.Expozitie} | {f.Vizitator} | {f.Comentariu ?? "-"}");
+            }
+            finally
+            {
+                StergeDateTestVanzari(viziteTest, feedbackTest, idVizitatorTest, idTurTest, idTipTest);
+                Console.WriteLine("\n  (vizitele, feedback-ul, vizitatorul, turul și tipul de bilet de test au fost șterse)");
+            }
+        }
+
+        static void StergeDateTestVanzari(List<int> vizite, List<int> feedback, int idVizitator, int idTur, int idTipBilet)
+        {
+            using (var db = DbFactory.Create())
+            {
+                db.Feedback.DeleteAllOnSubmit(db.Feedback.Where(f => feedback.Contains(f.IdFeedback) || vizite.Contains(f.IdVizita)));
+                db.SubmitChanges();
+
+                db.Bilete.DeleteAllOnSubmit(db.Bilete.Where(b => vizite.Contains(b.IdVizita)));
+                db.SubmitChanges();
+
+                db.Vizite.DeleteAllOnSubmit(db.Vizite.Where(v => vizite.Contains(v.IdVizita)));
+                db.SubmitChanges();
+
+                db.TururiGhidate.DeleteAllOnSubmit(db.TururiGhidate.Where(t => t.IdTur == idTur));
+                db.Vizitatori.DeleteAllOnSubmit(db.Vizitatori.Where(z => z.IdVizitator == idVizitator));
+                db.TipuriBilet.DeleteAllOnSubmit(db.TipuriBilet.Where(t => t.IdTipBilet == idTipBilet));
+                db.SubmitChanges();
+            }
+        }
+
+        static void Afiseaza(List<VizitatorDto> vizitatori)
+        {
+            foreach (var z in vizitatori)
+                Console.WriteLine(
+                    $"  [{z.IdVizitator}] {z.NumeComplet} | {z.Email ?? "-"} | {z.Telefon ?? "-"} | " +
+                    $"înregistrat {z.DataInregistrare:dd.MM.yyyy} | {z.NrVizite} vizite");
+
+            if (vizitatori.Count == 0)
+                Console.WriteLine("  (niciun rezultat)");
+        }
+
+        static void Afiseaza(CalculPretDto calcul)
+        {
+            foreach (var l in calcul.Linii)
+                Console.WriteLine(
+                    $"  {l.Cantitate} x {l.TipBilet} | {l.Expozitie} | {l.PretBaza} + {l.SuplimentExpozitie} + {l.SuplimentTur} " +
+                    $"= {l.PretUnitar} lei/buc | {l.Total} lei");
+            Console.WriteLine($"  TOTAL: {calcul.NrBilete} bilete, {calcul.Total} lei");
+        }
+
+        static void Afiseaza(VizitaDto v)
+        {
+            Console.WriteLine(
+                $"  vizita {v.IdVizita} | {v.DataVizita:dd.MM.yyyy HH:mm} | {v.Vizitator} | {v.Status} | " +
+                $"{(v.Tur != null ? "tur: " + v.Tur + " | " : "")}{v.NrBilete} bilete, {v.Total} lei" +
+                $"{(v.Casier != null ? " | casier: " + v.Casier : "")}");
+
+            if (v.Bilete != null)
+                foreach (var b in v.Bilete)
+                    Console.WriteLine($"      bilet {b.IdBilet}: {b.TipBilet} | {b.Expozitie} | {b.PretAchitat} lei");
+        }
+
+        static void Afiseaza(List<VizitaDto> vizite)
+        {
+            foreach (var v in vizite)
+                Afiseaza(v);
+
+            if (vizite.Count == 0)
                 Console.WriteLine("  (niciun rezultat)");
         }
 

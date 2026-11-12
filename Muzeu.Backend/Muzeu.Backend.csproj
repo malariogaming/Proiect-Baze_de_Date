@@ -47,16 +47,22 @@
     <Compile Include="DbFactory.cs" />
     <Compile Include="DTOs\AngajatDto.cs" />
     <Compile Include="DTOs\ArtefactDto.cs" />
+    <Compile Include="DTOs\CalculPretDto.cs" />
+    <Compile Include="DTOs\CerereVizita.cs" />
     <Compile Include="DTOs\ExpozitieDto.cs" />
+    <Compile Include="DTOs\FeedbackDto.cs" />
     <Compile Include="DTOs\FiltruArtefacte.cs" />
     <Compile Include="DTOs\ItemLista.cs" />
     <Compile Include="DTOs\MutareDto.cs" />
     <Compile Include="DTOs\ParticipantTurDto.cs" />
     <Compile Include="DTOs\ProgramZiDto.cs" />
     <Compile Include="DTOs\RestaurareDto.cs" />
+    <Compile Include="DTOs\TipBiletDto.cs" />
     <Compile Include="DTOs\TurDto.cs" />
     <Compile Include="DTOs\UtilizatorAutentificatDto.cs" />
     <Compile Include="DTOs\UtilizatorDto.cs" />
+    <Compile Include="DTOs\VizitaDto.cs" />
+    <Compile Include="DTOs\VizitatorDto.cs" />
     <Compile Include="Exceptions\MuzeuException.cs" />
     <Compile Include="MuzeuDB.designer.cs">
       <AutoGen>True</AutoGen>
@@ -74,6 +80,7 @@
     <Compile Include="Services\ExpozitieService.cs" />
     <Compile Include="Services\ProgramService.cs" />
     <Compile Include="Services\TurService.cs" />
+    <Compile Include="Services\VanzareService.cs" />
     <Compile Include="Sesiune.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -94,6 +101,5 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
