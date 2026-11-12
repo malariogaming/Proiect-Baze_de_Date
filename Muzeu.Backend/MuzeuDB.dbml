@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MuzeuDB" Class="MuzeuDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\SQLEXPRESS;Initial Catalog=MuzeuDB;Integrated Security=True;Trust Server Certificate=True" SettingsObjectName="Muzeu.Backend.Properties.Settings" SettingsPropertyName="MuzeuDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Angajati" Member="Angajati">
+    <Type Name="Angajati">
+      <Column Name="IdAngajat" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nume" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Prenume" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Functie" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Telefon" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DataAngajarii" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="Activ" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Angajati_Vizite" Member="Vizite" ThisKey="IdAngajat" OtherKey="IdCasier" Type="Vizite" />
+      <Association Name="Angajati_Expozitii" Member="Expozitii" ThisKey="IdAngajat" OtherKey="IdCurator" Type="Expozitii" />
+      <Association Name="Angajati_Restaurari" Member="Restaurari" ThisKey="IdAngajat" OtherKey="IdRestaurator" Type="Restaurari" />
+      <Association Name="Angajati_TururiGhidate" Member="TururiGhidate" ThisKey="IdAngajat" OtherKey="IdGhid" Type="TururiGhidate" />
+      <Association Name="Angajati_Utilizatori" Member="Utilizatori" ThisKey="IdAngajat" OtherKey="IdAngajat" Type="Utilizatori" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Vizite" Member="Vizite">
+    <Type Name="Vizite">
+      <Column Name="IdVizita" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdVizitator" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DataVizita" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="IdTur" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdCasier" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="DataCreare" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Observatii" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Association Name="Vizite_Bilete" Member="Bilete" ThisKey="IdVizita" OtherKey="IdVizita" Type="Bilete" />
+      <Association Name="Vizite_Feedback" Member="Feedback" ThisKey="IdVizita" OtherKey="IdVizita" Type="Feedback" />
+      <Association Name="Angajati_Vizite" Member="Angajati" ThisKey="IdCasier" OtherKey="IdAngajat" Type="Angajati" IsForeignKey="true" />
+      <Association Name="TururiGhidate_Vizite" Member="TururiGhidate" ThisKey="IdTur" OtherKey="IdTur" Type="TururiGhidate" IsForeignKey="true" />
+      <Association Name="Vizitatori_Vizite" Member="Vizitatori" ThisKey="IdVizitator" OtherKey="IdVizitator" Type="Vizitatori" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Artefacte" Member="Artefacte">
+    <Type Name="Artefacte">
+      <Column Name="IdArtefact" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CodInventar" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Denumire" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Descriere" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Autor" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Perioada" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="AnAproximativ" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Material" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Dimensiuni" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Provenienta" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="DataAchizitie" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="ValoareEstimata" Type="System.Decimal" DbType="Decimal(14,2)" CanBeNull="true" />
+      <Column Name="StareConservare" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="IdCategorie" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdExpozitie" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Artefacte_IstoricLocatii" Member="IstoricLocatii" ThisKey="IdArtefact" OtherKey="IdArtefact" Type="IstoricLocatii" />
+      <Association Name="Artefacte_Restaurari" Member="Restaurari" ThisKey="IdArtefact" OtherKey="IdArtefact" Type="Restaurari" />
+      <Association Name="Categorii_Artefacte" Member="Categorii" ThisKey="IdCategorie" OtherKey="IdCategorie" Type="Categorii" IsForeignKey="true" />
+      <Association Name="Expozitii_Artefacte" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Bilete" Member="Bilete">
+    <Type Name="Bilete">
+      <Column Name="IdBilet" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdVizita" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdTipBilet" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdExpozitie" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PretAchitat" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Association Name="Vizite_Bilete" Member="Vizite" ThisKey="IdVizita" OtherKey="IdVizita" Type="Vizite" IsForeignKey="true" />
+      <Association Name="Expozitii_Bilete" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+      <Association Name="TipuriBilet_Bilete" Member="TipuriBilet" ThisKey="IdTipBilet" OtherKey="IdTipBilet" Type="TipuriBilet" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Categorii" Member="Categorii">
+    <Type Name="Categorii">
+      <Column Name="IdCategorie" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Denumire" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Categorii_Artefacte" Member="Artefacte" ThisKey="IdCategorie" OtherKey="IdCategorie" Type="Artefacte" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ExceptiiProgram" Member="ExceptiiProgram">
+    <Type Name="ExceptiiProgram">
+      <Column Name="IdExceptie" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Data" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="OraDeschidere" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="OraInchidere" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="Inchis" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Motiv" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Expozitii" Member="Expozitii">
+    <Type Name="Expozitii">
+      <Column Name="IdExpozitie" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Titlu" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Descriere" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Tip" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="DataInceput" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="DataSfarsit" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="IdSala" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdCurator" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PretSuplimentar" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Association Name="Expozitii_Artefacte" Member="Artefacte" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Artefacte" />
+      <Association Name="Expozitii_Bilete" Member="Bilete" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Bilete" />
+      <Association Name="Expozitii_Feedback" Member="Feedback" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Feedback" />
+      <Association Name="Expozitii_IstoricLocatii" Member="IstoricLocatii" ThisKey="IdExpozitie" OtherKey="IdExpozitieNoua" Type="IstoricLocatii" />
+      <Association Name="Expozitii_IstoricLocatii1" Member="IstoricLocatii1" ThisKey="IdExpozitie" OtherKey="IdExpozitieVeche" Type="IstoricLocatii" />
+      <Association Name="Expozitii_TururiGhidate" Member="TururiGhidate" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="TururiGhidate" />
+      <Association Name="Angajati_Expozitii" Member="Angajati" ThisKey="IdCurator" OtherKey="IdAngajat" Type="Angajati" IsForeignKey="true" />
+      <Association Name="Sali_Expozitii" Member="Sali" ThisKey="IdSala" OtherKey="IdSala" Type="Sali" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Feedback" Member="Feedback">
+    <Type Name="Feedback">
+      <Column Name="IdFeedback" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdVizita" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdExpozitie" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nota" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
+      <Column Name="Comentariu" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="DataFeedback" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Expozitii_Feedback" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+      <Association Name="Vizite_Feedback" Member="Vizite" ThisKey="IdVizita" OtherKey="IdVizita" Type="Vizite" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.IstoricLocatii" Member="IstoricLocatii">
+    <Type Name="IstoricLocatii">
+      <Column Name="IdMutare" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdArtefact" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdExpozitieVeche" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdExpozitieNoua" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DataMutare" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Artefacte_IstoricLocatii" Member="Artefacte" ThisKey="IdArtefact" OtherKey="IdArtefact" Type="Artefacte" IsForeignKey="true" />
+      <Association Name="Expozitii_IstoricLocatii" Member="Expozitii" ThisKey="IdExpozitieNoua" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+      <Association Name="Expozitii_IstoricLocatii1" Member="Expozitii1" ThisKey="IdExpozitieVeche" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProgramSaptamanal" Member="ProgramSaptamanal">
+    <Type Name="ProgramSaptamanal">
+      <Column Name="ZiSaptamana" Type="System.Byte" DbType="TinyInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="OraDeschidere" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="OraInchidere" Type="System.TimeSpan" DbType="Time" CanBeNull="true" />
+      <Column Name="Inchis" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Restaurari" Member="Restaurari">
+    <Type Name="Restaurari">
+      <Column Name="IdRestaurare" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdArtefact" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdRestaurator" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="DataInceput" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="DataSfarsit" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Descriere" Type="System.String" DbType="NVarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="Cost" Type="System.Decimal" DbType="Decimal(10,2)" CanBeNull="true" />
+      <Association Name="Angajati_Restaurari" Member="Angajati" ThisKey="IdRestaurator" OtherKey="IdAngajat" Type="Angajati" IsForeignKey="true" />
+      <Association Name="Artefacte_Restaurari" Member="Artefacte" ThisKey="IdArtefact" OtherKey="IdArtefact" Type="Artefacte" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sali" Member="Sali">
+    <Type Name="Sali">
+      <Column Name="IdSala" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Denumire" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Etaj" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Suprafata" Type="System.Decimal" DbType="Decimal(7,2)" CanBeNull="true" />
+      <Column Name="CapacitateMaxima" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Sali_Expozitii" Member="Expozitii" ThisKey="IdSala" OtherKey="IdSala" Type="Expozitii" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TipuriBilet" Member="TipuriBilet">
+    <Type Name="TipuriBilet">
+      <Column Name="IdTipBilet" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Denumire" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Pret" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Column Name="Activ" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="TipuriBilet_Bilete" Member="Bilete" ThisKey="IdTipBilet" OtherKey="IdTipBilet" Type="Bilete" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TururiGhidate" Member="TururiGhidate">
+    <Type Name="TururiGhidate">
+      <Column Name="IdTur" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdExpozitie" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdGhid" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DataOraInceput" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="DurataMinute" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Limba" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="NrMaximParticipanti" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PretSuplimentar" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
+      <Association Name="TururiGhidate_Vizite" Member="Vizite" ThisKey="IdTur" OtherKey="IdTur" Type="Vizite" />
+      <Association Name="Angajati_TururiGhidate" Member="Angajati" ThisKey="IdGhid" OtherKey="IdAngajat" Type="Angajati" IsForeignKey="true" />
+      <Association Name="Expozitii_TururiGhidate" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Utilizatori" Member="Utilizatori">
+    <Type Name="Utilizatori">
+      <Column Name="IdUtilizator" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="NumeUtilizator" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="ParolaHash" Type="System.String" DbType="NVarChar(64) NOT NULL" CanBeNull="false" />
+      <Column Name="Rol" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="IdAngajat" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Activ" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="UltimaAutentificare" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Angajati_Utilizatori" Member="Angajati" ThisKey="IdAngajat" OtherKey="IdAngajat" Type="Angajati" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Vizitatori" Member="Vizitatori">
+    <Type Name="Vizitatori">
+      <Column Name="IdVizitator" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nume" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Prenume" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Telefon" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="DataInregistrare" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Vizitatori_Vizite" Member="Vizite" ThisKey="IdVizitator" OtherKey="IdVizitator" Type="Vizite" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_ArtefacteDetaliat" Member="vw_ArtefacteDetaliat">
+    <Type Name="vw_ArtefacteDetaliat">
+      <Column Name="IdArtefact" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CodInventar" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Denumire" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Autor" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Perioada" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="StareConservare" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Categorie" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Locatie" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="InRestaurare" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_StatisticiExpozitii" Member="vw_StatisticiExpozitii">
+    <Type Name="vw_StatisticiExpozitii">
+      <Column Name="IdExpozitie" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Titlu" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Tip" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="Sala" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="NrArtefacte" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NrBileteVandute" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NotaMedie" Type="System.Decimal" DbType="Decimal(38,6)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.sp_VenituriPerioada" Method="sp_VenituriPerioada">
+    <Parameter Name="DataStart" Parameter="dataStart" Type="System.DateTime" DbType="Date" />
+    <Parameter Name="DataSfarsit" Parameter="dataSfarsit" Type="System.DateTime" DbType="Date" />
+    <ElementType Name="sp_VenituriPerioadaResult">
+      <Column Name="Zi" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="NrBilete" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Venit" Type="System.Decimal" DbType="Decimal(38,2)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.fn_EsteDeschis" Method="fn_EsteDeschis" IsComposable="true">
+    <Parameter Name="Moment" Parameter="moment" Type="System.DateTime" DbType="DateTime" />
+    <Return Type="System.Boolean" />
+  </Function>
+</Database>

@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.25, 15.5" name="MuzeuDB">
+  <DataContextMoniker Name="/MuzeuDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" absoluteBounds="0.75, 8.375, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Angajati" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7a48ff08-5af2-400a-9160-4514c4d77ecb" absoluteBounds="0.765, 8.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="07276a84-7fd7-470b-b2c3-72638235ca93" absoluteBounds="3.5, 5.375, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Vizite" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cc42585e-59a1-4824-a387-5b2d7622bb78" absoluteBounds="3.515, 5.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5ff504ef-b672-46e3-900c-6ac64fad607f" absoluteBounds="12.25, 7.75, 2, 3.6939111328124987">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Artefacte" />
+      <nestedChildShapes>
+        <elementListCompartment Id="43852aa6-e83d-499b-9489-d0dda729b20a" absoluteBounds="12.265, 8.21, 1.9700000000000002, 3.1339111328125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="3b86a571-b5fd-4a64-974a-71e46d07a608" absoluteBounds="9.25, 7.25, 2, 1.7708968098958335">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Bilete" />
+      <nestedChildShapes>
+        <elementListCompartment Id="18601300-facc-408c-ae98-0d7e5144185d" absoluteBounds="9.265, 7.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8208bb79-6978-44eb-b1a7-53536c53ab12" absoluteBounds="9.5, 14, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Categorii" />
+      <nestedChildShapes>
+        <elementListCompartment Id="8d63660d-3f48-4d92-912e-ccb5f97dea90" absoluteBounds="9.515, 14.46, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="70a0d55d-ddba-4a80-a175-9baa9f08b352" absoluteBounds="0.75, 0.75, 2, 1.9631982421875">
+      <DataClassMoniker Name="/MuzeuDBDataContext/ExceptiiProgram" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1b9644dc-1a69-4bf6-9289-e9e6adac4c57" absoluteBounds="0.765, 1.21, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" absoluteBounds="6.5, 8.25, 2, 2.5401025390624987">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Expozitii" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f793127a-39dd-45c5-b44a-a53440625365" absoluteBounds="6.515, 8.71, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bcde76da-db6a-425c-bf28-f5c26cfda34f" absoluteBounds="9.25, 4.125, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Feedback" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ab58d3a2-c6d8-4ef3-9a40-d9eb0cb2878c" absoluteBounds="9.265, 4.585, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5940a4bc-d5ee-46a8-9b68-f87b064898a0" absoluteBounds="15, 8.75, 2, 1.7708968098958344">
+      <DataClassMoniker Name="/MuzeuDBDataContext/IstoricLocatii" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2036caf2-74ee-4b9d-9256-a9992c60379f" absoluteBounds="15.015, 9.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="c591f78e-a14d-4931-bffa-1c37f1b816fe" absoluteBounds="3.75, 0.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/MuzeuDBDataContext/ProgramSaptamanal" />
+      <nestedChildShapes>
+        <elementListCompartment Id="0957a3bf-4b8b-4bf5-9c3c-02bfdc420bf0" absoluteBounds="3.765, 1.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d82e69f4-c18d-4769-9559-d2d64d4a7750" absoluteBounds="15, 5.5, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Restaurari" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2b29e48e-821c-453b-9e94-3dfaa744fc9f" absoluteBounds="15.015, 5.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="85876a0a-5058-48d5-9779-abbe3aa48a62" absoluteBounds="3.75, 11.75, 2, 1.7708968098958344">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Sali" />
+      <nestedChildShapes>
+        <elementListCompartment Id="76189e3e-08ab-469f-b0f6-2c41a60d463a" absoluteBounds="3.765, 12.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="40d81e44-e66c-44f6-a9ec-a80a2a24d404" absoluteBounds="6.5, 5.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/MuzeuDBDataContext/TipuriBilet" />
+      <nestedChildShapes>
+        <elementListCompartment Id="15749e37-7704-4d02-953e-f702070cc497" absoluteBounds="6.515, 5.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f03ac87b-e683-44a9-9215-a98372d6f811" absoluteBounds="9.25, 10.375, 2, 2.3478011067708344">
+      <DataClassMoniker Name="/MuzeuDBDataContext/TururiGhidate" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d3f4638d-e3a4-48de-a486-8fa1d6a0bff3" absoluteBounds="9.265, 10.835, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="03650c46-e87b-461f-99af-097f427c8ffb" absoluteBounds="3.5, 8.5, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Utilizatori" />
+      <nestedChildShapes>
+        <elementListCompartment Id="56a2698d-e3d3-4ece-abea-fc7f8256a059" absoluteBounds="3.515, 8.96, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6584d3f2-303f-4a55-8cfd-1351f2891c4b" absoluteBounds="0.75, 4.375, 2, 1.9631982421875005">
+      <DataClassMoniker Name="/MuzeuDBDataContext/Vizitatori" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4c47c24e-2782-4bbb-aa55-ff31c62fb111" absoluteBounds="0.765, 4.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 8.37653746153846); (3.125 : 8.00153746153846); (3.125 : 6.54890055338542); (3.5 : 6.54890055338542)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_Vizite" />
+      <nodes>
+        <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
+        <classShapeMoniker Id="07276a84-7fd7-470b-b2c3-72638235ca93" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 7.48640055338542); (8.79166666666667 : 7.48640055338542 : JumpStart); (9.08333333333333 : 7.48640055338542 : JumpEnd); (9.25 : 7.48640055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Vizite/Vizite_Bilete" />
+      <nodes>
+        <classShapeMoniker Id="07276a84-7fd7-470b-b2c3-72638235ca93" />
+        <classShapeMoniker Id="3b86a571-b5fd-4a64-974a-71e46d07a608" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11.40625 : 14); (11.40625 : 9.69794840494792); (11.9166666666667 : 9.69794840494792 : JumpStart); (12.0833333333333 : 9.69794840494792 : JumpEnd); (12.25 : 9.69794840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Categorii/Categorii_Artefacte" />
+      <nodes>
+        <classShapeMoniker Id="8208bb79-6978-44eb-b1a7-53536c53ab12" />
+        <classShapeMoniker Id="5ff504ef-b672-46e3-900c-6ac64fad607f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 9.32817260742188); (11.6666666666667 : 9.32817260742188 : JumpStart); (11.8333333333333 : 9.32817260742188 : JumpEnd); (11.9166666666667 : 9.32817260742188 : JumpStart); (12.0833333333333 : 9.32817260742188 : JumpEnd); (12.25 : 9.32817260742188)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_Artefacte" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="5ff504ef-b672-46e3-900c-6ac64fad607f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 8.63544840494792); (9.25 : 8.63544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_Bilete" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="3b86a571-b5fd-4a64-974a-71e46d07a608" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 8.40625); (3.16666666666667 : 8.40625 : JumpStart); (3.33333333333333 : 8.40625 : JumpEnd); (5.57291666666667 : 8.40625 : JumpStart); (5.73958333333333 : 8.40625 : JumpEnd); (6.5 : 8.40625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_Expozitii" />
+      <nodes>
+        <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 8.25); (8.875 : 7.875); (8.875 : 5.10659912109375); (9.25 : 5.10659912109375)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_Feedback" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="bcde76da-db6a-425c-bf28-f5c26cfda34f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 5.375); (4.5 : 4.58454706054687); (9.25 : 4.58454706054687)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Vizite/Vizite_Feedback" />
+      <nodes>
+        <classShapeMoniker Id="07276a84-7fd7-470b-b2c3-72638235ca93" />
+        <classShapeMoniker Id="bcde76da-db6a-425c-bf28-f5c26cfda34f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(14.25 : 9.63544840494792); (15 : 9.63544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Artefacte/Artefacte_IstoricLocatii" />
+      <nodes>
+        <classShapeMoniker Id="5ff504ef-b672-46e3-900c-6ac64fad607f" />
+        <classShapeMoniker Id="5940a4bc-d5ee-46a8-9b68-f87b064898a0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 10.005224202474); (11.3229166666667 : 10.005224202474 : JumpStart); (11.4895833333333 : 10.005224202474 : JumpEnd); (12 : 10.005224202474); (12 : 7.5); (13.1666666666667 : 7.5 : JumpStart); (13.3333333333333 : 7.5 : JumpEnd); (14.4166666666667 : 7.5 : JumpStart); (14.5833333333333 : 7.5 : JumpEnd); (14.75 : 7.5); (14.75 : 7.90549967447917); (16 : 7.90549967447917); (16 : 8.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_IstoricLocatii" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="5940a4bc-d5ee-46a8-9b68-f87b064898a0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 9.5443130061849); (11.75 : 9.5443130061849); (11.75 : 7.25); (13.1666666666667 : 7.25 : JumpStart); (13.3333333333333 : 7.25 : JumpEnd); (14.5 : 7.25); (14.5 : 8.15549967447917); (15.468748 : 8.15549967447917); (15.468748 : 8.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_IstoricLocatii1" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="5940a4bc-d5ee-46a8-9b68-f87b064898a0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 8.375); (1.75 : 7.97280110677083); (4.41666666666667 : 7.97280110677083 : JumpStart); (4.58333333333333 : 7.97280110677083 : JumpEnd); (8.69386555989583 : 7.97280110677083 : JumpStart); (8.8605322265625 : 7.97280110677083 : JumpEnd); (9 : 7.97280110677083); (9 : 6.66909912109375); (13.1666666666667 : 6.66909912109375 : JumpStart); (13.3333333333333 : 6.66909912109375 : JumpEnd); (15 : 6.66909912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_Restaurari" />
+      <nodes>
+        <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
+        <classShapeMoniker Id="d82e69f4-c18d-4769-9559-d2d64d4a7750" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(13.25 : 7.75); (13.25 : 6.05329706054688); (15 : 6.05329706054688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Artefacte/Artefacte_Restaurari" />
+      <nodes>
+        <classShapeMoniker Id="5ff504ef-b672-46e3-900c-6ac64fad607f" />
+        <classShapeMoniker Id="d82e69f4-c18d-4769-9559-d2d64d4a7750" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.65625 : 11.75); (5.65625 : 8.2968725); (6.5 : 8.2968725)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Sali/Sali_Expozitii" />
+      <nodes>
+        <classShapeMoniker Id="85876a0a-5058-48d5-9779-abbe3aa48a62" />
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 6.89166486663662); (8.6875 : 7.07916486663662); (8.6875 : 6.6875); (8.81607443490112 : 6.81607443490112 : JumpStart); (8.93392556509888 : 6.93392556509888 : JumpEnd); (8.94107443490112 : 6.94107443490112 : JumpStart); (9.05892556509888 : 7.05892556509888 : JumpEnd); (9.25 : 7.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/MuzeuDBDataContext/TipuriBilet/TipuriBilet_Bilete" />
+      <nodes>
+        <classShapeMoniker Id="40d81e44-e66c-44f6-a9ec-a80a2a24d404" />
+        <classShapeMoniker Id="3b86a571-b5fd-4a64-974a-71e46d07a608" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(9.25 : 11.2700512695312); (5.73958333333333 : 11.2700512695312 : JumpStart); (5.57291666666667 : 11.2700512695312 : JumpEnd); (3.25 : 11.2700512695312); (3.25 : 8.09780110677083); (4.5 : 8.09780110677083); (4.5 : 7.72280110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/TururiGhidate/TururiGhidate_Vizite" />
+      <nodes>
+        <classShapeMoniker Id="f03ac87b-e683-44a9-9215-a98372d6f811" />
+        <classShapeMoniker Id="07276a84-7fd7-470b-b2c3-72638235ca93" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 10.7228011067708); (1.75 : 11.0300744042969); (3.16666666666667 : 11.0300744042969 : JumpStart); (3.33333333333333 : 11.0300744042969 : JumpEnd); (5.57291666666667 : 11.0300744042969 : JumpStart); (5.73958333333333 : 11.0300744042969 : JumpEnd); (9.25 : 11.0300744042969)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_TururiGhidate" />
+      <nodes>
+        <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
+        <classShapeMoniker Id="f03ac87b-e683-44a9-9215-a98372d6f811" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 10.5825512695312); (9.25 : 10.5825512695312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_TururiGhidate" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="f03ac87b-e683-44a9-9215-a98372d6f811" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 9.57774983723958); (3.16666666666667 : 9.57774983723958 : JumpStart); (3.33333333333333 : 9.57774983723958 : JumpEnd); (3.5 : 9.57774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_Utilizatori" />
+      <nodes>
+        <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
+        <classShapeMoniker Id="03650c46-e87b-461f-99af-097f427c8ffb" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 5.85659912109375); (3.5 : 5.85659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Vizitatori/Vizitatori_Vizite" />
+      <nodes>
+        <classShapeMoniker Id="6584d3f2-303f-4a55-8cfd-1351f2891c4b" />
+        <classShapeMoniker Id="07276a84-7fd7-470b-b2c3-72638235ca93" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="67c4d43f-1011-4a7f-aeb5-f26c98aab2e9" absoluteBounds="6.375, 0.75, 2, 2.5401025390625005">
+      <DataClassMoniker Name="/MuzeuDBDataContext/vw_ArtefacteDetaliat" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ea84597a-0317-4d8a-bd08-1847f7b7a488" absoluteBounds="6.39, 1.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a7e680d4-5577-406c-8853-926f5a106e21" absoluteBounds="9.375, 0.75, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/MuzeuDBDataContext/vw_StatisticiExpozitii" />
+      <nestedChildShapes>
+        <elementListCompartment Id="93445b35-342a-4450-927d-47bc961e994d" absoluteBounds="9.39, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>
