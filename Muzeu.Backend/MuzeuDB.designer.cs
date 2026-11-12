@@ -505,7 +505,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Angajati_Expozitii", Storage="_Expozitii", ThisKey="IdAngajat", OtherKey="IdCurator")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Angajati_Expozitie", Storage="_Expozitii", ThisKey="IdAngajat", OtherKey="IdCurator")]
 		public EntitySet<Expozitii> Expozitii
 		{
 			get
@@ -1504,7 +1504,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_Artefacte", Storage="_Expozitii", ThisKey="IdExpozitie", OtherKey="IdExpozitie", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_Artefacte", Storage="_Expozitii", ThisKey="IdExpozitie", OtherKey="IdExpozitie", IsForeignKey=true)]
 		public Expozitii Expozitii
 		{
 			get
@@ -1775,7 +1775,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_Bilete", Storage="_Expozitii", ThisKey="IdExpozitie", OtherKey="IdExpozitie", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_Bilete", Storage="_Expozitii", ThisKey="IdExpozitie", OtherKey="IdExpozitie", IsForeignKey=true)]
 		public Expozitii Expozitii
 		{
 			get
@@ -2425,7 +2425,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_Artefacte", Storage="_Artefacte", ThisKey="IdExpozitie", OtherKey="IdExpozitie")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_Artefacte", Storage="_Artefacte", ThisKey="IdExpozitie", OtherKey="IdExpozitie")]
 		public EntitySet<Artefacte> Artefacte
 		{
 			get
@@ -2438,7 +2438,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_Bilete", Storage="_Bilete", ThisKey="IdExpozitie", OtherKey="IdExpozitie")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_Bilete", Storage="_Bilete", ThisKey="IdExpozitie", OtherKey="IdExpozitie")]
 		public EntitySet<Bilete> Bilete
 		{
 			get
@@ -2451,7 +2451,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_Feedback", Storage="_Feedback", ThisKey="IdExpozitie", OtherKey="IdExpozitie")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_Feedback", Storage="_Feedback", ThisKey="IdExpozitie", OtherKey="IdExpozitie")]
 		public EntitySet<Feedback> Feedback
 		{
 			get
@@ -2464,7 +2464,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_IstoricLocatii", Storage="_IstoricLocatii", ThisKey="IdExpozitie", OtherKey="IdExpozitieNoua")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_IstoricLocatii", Storage="_IstoricLocatii", ThisKey="IdExpozitie", OtherKey="IdExpozitieNoua")]
 		public EntitySet<IstoricLocatii> IstoricLocatii
 		{
 			get
@@ -2477,7 +2477,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_IstoricLocatii1", Storage="_IstoricLocatii1", ThisKey="IdExpozitie", OtherKey="IdExpozitieVeche")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_IstoricLocatii1", Storage="_IstoricLocatii1", ThisKey="IdExpozitie", OtherKey="IdExpozitieVeche")]
 		public EntitySet<IstoricLocatii> IstoricLocatii1
 		{
 			get
@@ -2490,7 +2490,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_TururiGhidate", Storage="_TururiGhidate", ThisKey="IdExpozitie", OtherKey="IdExpozitie")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_TururiGhidate", Storage="_TururiGhidate", ThisKey="IdExpozitie", OtherKey="IdExpozitie")]
 		public EntitySet<TururiGhidate> TururiGhidate
 		{
 			get
@@ -2503,7 +2503,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Angajati_Expozitii", Storage="_Angajati", ThisKey="IdCurator", OtherKey="IdAngajat", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Angajati_Expozitie", Storage="_Angajati", ThisKey="IdCurator", OtherKey="IdAngajat", IsForeignKey=true)]
 		public Angajati Angajati
 		{
 			get
@@ -2537,7 +2537,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sali_Expozitii", Storage="_Sali", ThisKey="IdSala", OtherKey="IdSala", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sali_Expozitie", Storage="_Sali", ThisKey="IdSala", OtherKey="IdSala", IsForeignKey=true)]
 		public Sali Sali
 		{
 			get
@@ -2839,7 +2839,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_Feedback", Storage="_Expozitii", ThisKey="IdExpozitie", OtherKey="IdExpozitie", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_Feedback", Storage="_Expozitii", ThisKey="IdExpozitie", OtherKey="IdExpozitie", IsForeignKey=true)]
 		public Expozitii Expozitii
 		{
 			get
@@ -3120,7 +3120,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_IstoricLocatii", Storage="_Expozitii", ThisKey="IdExpozitieNoua", OtherKey="IdExpozitie", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_IstoricLocatii", Storage="_Expozitii", ThisKey="IdExpozitieNoua", OtherKey="IdExpozitie", IsForeignKey=true)]
 		public Expozitii Expozitii
 		{
 			get
@@ -3154,7 +3154,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_IstoricLocatii1", Storage="_Expozitii1", ThisKey="IdExpozitieVeche", OtherKey="IdExpozitie", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_IstoricLocatii1", Storage="_Expozitii1", ThisKey="IdExpozitieVeche", OtherKey="IdExpozitie", IsForeignKey=true)]
 		public Expozitii Expozitii1
 		{
 			get
@@ -3771,7 +3771,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sali_Expozitii", Storage="_Expozitii", ThisKey="IdSala", OtherKey="IdSala")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sali_Expozitie", Storage="_Expozitii", ThisKey="IdSala", OtherKey="IdSala")]
 		public EntitySet<Expozitii> Expozitii
 		{
 			get
@@ -4252,7 +4252,7 @@ namespace Muzeu.Backend
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitii_TururiGhidate", Storage="_Expozitii", ThisKey="IdExpozitie", OtherKey="IdExpozitie", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Expozitie_TururiGhidate", Storage="_Expozitii", ThisKey="IdExpozitie", OtherKey="IdExpozitie", IsForeignKey=true)]
 		public Expozitii Expozitii
 		{
 			get

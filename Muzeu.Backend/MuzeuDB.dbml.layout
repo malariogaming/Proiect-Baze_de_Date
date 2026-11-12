@@ -98,102 +98,53 @@
         <elementListCompartment Id="4c47c24e-2782-4bbb-aa55-ff31c62fb111" absoluteBounds="0.765, 4.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 8.37653746153846); (3.125 : 8.00153746153846); (3.125 : 6.54890055338542); (3.5 : 6.54890055338542)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 8.37653746153846); (3.125 : 8.00153746153846); (3.125 : 6.54890055338542); (3.5 : 6.54890055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_Vizite" />
       <nodes>
         <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
         <classShapeMoniker Id="07276a84-7fd7-470b-b2c3-72638235ca93" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(5.5 : 7.48640055338542); (8.79166666666667 : 7.48640055338542 : JumpStart); (9.08333333333333 : 7.48640055338542 : JumpEnd); (9.25 : 7.48640055338542)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(5.5 : 7.48640055338542); (8.79166666666667 : 7.48640055338542 : JumpStart); (9.08333333333333 : 7.48640055338542 : JumpEnd); (9.25 : 7.48640055338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Vizite/Vizite_Bilete" />
       <nodes>
         <classShapeMoniker Id="07276a84-7fd7-470b-b2c3-72638235ca93" />
         <classShapeMoniker Id="3b86a571-b5fd-4a64-974a-71e46d07a608" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11.40625 : 14); (11.40625 : 9.69794840494792); (11.9166666666667 : 9.69794840494792 : JumpStart); (12.0833333333333 : 9.69794840494792 : JumpEnd); (12.25 : 9.69794840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(11.40625 : 14); (11.40625 : 9.69794840494792); (11.9166666666667 : 9.69794840494792 : JumpStart); (12.0833333333333 : 9.69794840494792 : JumpEnd); (12.25 : 9.69794840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Categorii/Categorii_Artefacte" />
       <nodes>
         <classShapeMoniker Id="8208bb79-6978-44eb-b1a7-53536c53ab12" />
         <classShapeMoniker Id="5ff504ef-b672-46e3-900c-6ac64fad607f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 9.32817260742188); (11.6666666666667 : 9.32817260742188 : JumpStart); (11.8333333333333 : 9.32817260742188 : JumpEnd); (11.9166666666667 : 9.32817260742188 : JumpStart); (12.0833333333333 : 9.32817260742188 : JumpEnd); (12.25 : 9.32817260742188)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_Artefacte" />
-      <nodes>
-        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
-        <classShapeMoniker Id="5ff504ef-b672-46e3-900c-6ac64fad607f" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 8.63544840494792); (9.25 : 8.63544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_Bilete" />
-      <nodes>
-        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
-        <classShapeMoniker Id="3b86a571-b5fd-4a64-974a-71e46d07a608" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 8.40625); (3.16666666666667 : 8.40625 : JumpStart); (3.33333333333333 : 8.40625 : JumpEnd); (5.57291666666667 : 8.40625 : JumpStart); (5.73958333333333 : 8.40625 : JumpEnd); (6.5 : 8.40625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_Expozitii" />
-      <nodes>
-        <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
-        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 8.25); (8.875 : 7.875); (8.875 : 5.10659912109375); (9.25 : 5.10659912109375)]" fixedFrom="NotFixed" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_Feedback" />
-      <nodes>
-        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
-        <classShapeMoniker Id="bcde76da-db6a-425c-bf28-f5c26cfda34f" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 5.375); (4.5 : 4.58454706054687); (9.25 : 4.58454706054687)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.5 : 5.375); (4.5 : 4.7499995); (9.25 : 4.7499995)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Vizite/Vizite_Feedback" />
       <nodes>
         <classShapeMoniker Id="07276a84-7fd7-470b-b2c3-72638235ca93" />
         <classShapeMoniker Id="bcde76da-db6a-425c-bf28-f5c26cfda34f" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(14.25 : 9.63544840494792); (15 : 9.63544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(14.25 : 9.63544840494792); (15 : 9.63544840494792)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Artefacte/Artefacte_IstoricLocatii" />
       <nodes>
         <classShapeMoniker Id="5ff504ef-b672-46e3-900c-6ac64fad607f" />
         <classShapeMoniker Id="5940a4bc-d5ee-46a8-9b68-f87b064898a0" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 10.005224202474); (11.3229166666667 : 10.005224202474 : JumpStart); (11.4895833333333 : 10.005224202474 : JumpEnd); (12 : 10.005224202474); (12 : 7.5); (13.1666666666667 : 7.5 : JumpStart); (13.3333333333333 : 7.5 : JumpEnd); (14.4166666666667 : 7.5 : JumpStart); (14.5833333333333 : 7.5 : JumpEnd); (14.75 : 7.5); (14.75 : 7.90549967447917); (16 : 7.90549967447917); (16 : 8.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_IstoricLocatii" />
-      <nodes>
-        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
-        <classShapeMoniker Id="5940a4bc-d5ee-46a8-9b68-f87b064898a0" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 9.5443130061849); (11.75 : 9.5443130061849); (11.75 : 7.25); (13.1666666666667 : 7.25 : JumpStart); (13.3333333333333 : 7.25 : JumpEnd); (14.5 : 7.25); (14.5 : 8.15549967447917); (15.468748 : 8.15549967447917); (15.468748 : 8.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_IstoricLocatii1" />
-      <nodes>
-        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
-        <classShapeMoniker Id="5940a4bc-d5ee-46a8-9b68-f87b064898a0" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 8.375); (1.75 : 7.97280110677083); (4.41666666666667 : 7.97280110677083 : JumpStart); (4.58333333333333 : 7.97280110677083 : JumpEnd); (8.69386555989583 : 7.97280110677083 : JumpStart); (8.8605322265625 : 7.97280110677083 : JumpEnd); (9 : 7.97280110677083); (9 : 6.66909912109375); (13.1666666666667 : 6.66909912109375 : JumpStart); (13.3333333333333 : 6.66909912109375 : JumpEnd); (15 : 6.66909912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 8.375); (1.75 : 7.97280110677083); (4.41666666666667 : 7.97280110677083 : JumpStart); (4.58333333333333 : 7.97280110677083 : JumpEnd); (8.69386555989584 : 7.97280110677083 : JumpStart); (8.8605322265625 : 7.97280110677083 : JumpEnd); (9 : 7.97280110677083); (9 : 6.66909912109375); (13.1666666666667 : 6.66909912109375 : JumpStart); (13.3333333333333 : 6.66909912109375 : JumpEnd); (15 : 6.66909912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_Restaurari" />
       <nodes>
         <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
         <classShapeMoniker Id="d82e69f4-c18d-4769-9559-d2d64d4a7750" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(13.25 : 7.75); (13.25 : 6.05329706054688); (15 : 6.05329706054688)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(13.25 : 7.75); (13.25 : 6.05329706054688); (15 : 6.05329706054688)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Artefacte/Artefacte_Restaurari" />
       <nodes>
         <classShapeMoniker Id="5ff504ef-b672-46e3-900c-6ac64fad607f" />
         <classShapeMoniker Id="d82e69f4-c18d-4769-9559-d2d64d4a7750" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(5.65625 : 11.75); (5.65625 : 8.2968725); (6.5 : 8.2968725)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MuzeuDBDataContext/Sali/Sali_Expozitii" />
-      <nodes>
-        <classShapeMoniker Id="85876a0a-5058-48d5-9779-abbe3aa48a62" />
-        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
       </nodes>
     </associationConnector>
     <associationConnector edgePoints="[(8.5 : 6.89166486663662); (8.6875 : 7.07916486663662); (8.6875 : 6.6875); (8.81607443490112 : 6.81607443490112 : JumpStart); (8.93392556509888 : 6.93392556509888 : JumpEnd); (8.94107443490112 : 6.94107443490112 : JumpStart); (9.05892556509888 : 7.05892556509888 : JumpEnd); (9.25 : 7.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
@@ -203,35 +154,28 @@
         <classShapeMoniker Id="3b86a571-b5fd-4a64-974a-71e46d07a608" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(9.25 : 11.2700512695312); (5.73958333333333 : 11.2700512695312 : JumpStart); (5.57291666666667 : 11.2700512695312 : JumpEnd); (3.25 : 11.2700512695312); (3.25 : 8.09780110677083); (4.5 : 8.09780110677083); (4.5 : 7.72280110677083)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(9.25 : 11.2700512695312); (5.73958333333333 : 11.2700512695312 : JumpStart); (5.57291666666667 : 11.2700512695312 : JumpEnd); (3.25 : 11.2700512695312); (3.25 : 8.09780110677083); (4.5 : 8.09780110677083); (4.5 : 7.72280110677083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/TururiGhidate/TururiGhidate_Vizite" />
       <nodes>
         <classShapeMoniker Id="f03ac87b-e683-44a9-9215-a98372d6f811" />
         <classShapeMoniker Id="07276a84-7fd7-470b-b2c3-72638235ca93" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.75 : 10.7228011067708); (1.75 : 11.0300744042969); (3.16666666666667 : 11.0300744042969 : JumpStart); (3.33333333333333 : 11.0300744042969 : JumpEnd); (5.57291666666667 : 11.0300744042969 : JumpStart); (5.73958333333333 : 11.0300744042969 : JumpEnd); (9.25 : 11.0300744042969)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(1.75 : 10.7228011067708); (1.75 : 11.0300744042969); (3.16666666666667 : 11.0300744042969 : JumpStart); (3.33333333333333 : 11.0300744042969 : JumpEnd); (5.57291666666667 : 11.0300744042969 : JumpStart); (5.73958333333333 : 11.0300744042969 : JumpEnd); (9.25 : 11.0300744042969)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_TururiGhidate" />
       <nodes>
         <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
         <classShapeMoniker Id="f03ac87b-e683-44a9-9215-a98372d6f811" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.5 : 10.5825512695312); (9.25 : 10.5825512695312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitii_TururiGhidate" />
-      <nodes>
-        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
-        <classShapeMoniker Id="f03ac87b-e683-44a9-9215-a98372d6f811" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 9.57774983723958); (3.16666666666667 : 9.57774983723958 : JumpStart); (3.33333333333333 : 9.57774983723958 : JumpEnd); (3.5 : 9.57774983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 9.57774983723958); (3.16666666666667 : 9.57774983723958 : JumpStart); (3.33333333333333 : 9.57774983723958 : JumpEnd); (3.5 : 9.57774983723958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_Utilizatori" />
       <nodes>
         <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
         <classShapeMoniker Id="03650c46-e87b-461f-99af-097f427c8ffb" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 5.85659912109375); (3.5 : 5.85659912109375)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 5.85659912109375); (3.5 : 5.85659912109375)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/MuzeuDBDataContext/Vizitatori/Vizitatori_Vizite" />
       <nodes>
         <classShapeMoniker Id="6584d3f2-303f-4a55-8cfd-1351f2891c4b" />
@@ -250,5 +194,61 @@
         <elementListCompartment Id="93445b35-342a-4450-927d-47bc961e994d" absoluteBounds="9.39, 1.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <associationConnector edgePoints="[(8.5 : 9.32817260742188); (11.6666666666667 : 9.32817260742188 : JumpStart); (11.8333333333333 : 9.32817260742188 : JumpEnd); (11.9166666666667 : 9.32817260742188 : JumpStart); (12.0833333333333 : 9.32817260742188 : JumpEnd); (12.25 : 9.32817260742188)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitie_Artefacte" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="5ff504ef-b672-46e3-900c-6ac64fad607f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 8.63544840494792); (9.25 : 8.63544840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitie_Bilete" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="3b86a571-b5fd-4a64-974a-71e46d07a608" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 8.40625); (3.16666666666667 : 8.40625 : JumpStart); (3.33333333333333 : 8.40625 : JumpEnd); (5.57291666666667 : 8.40625 : JumpStart); (5.73958333333333 : 8.40625 : JumpEnd); (6.5 : 8.40625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Angajati/Angajati_Expozitie" />
+      <nodes>
+        <classShapeMoniker Id="da98e2dd-3985-4c79-9eaa-17a491471b1e" />
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.65625 : 11.75); (5.65625 : 8.2968725); (6.5 : 8.2968725)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Sali/Sali_Expozitie" />
+      <nodes>
+        <classShapeMoniker Id="85876a0a-5058-48d5-9779-abbe3aa48a62" />
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 8.25); (8.875 : 7.875); (8.875 : 5.10659912109375); (9.25 : 5.10659912109375)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitie_Feedback" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="bcde76da-db6a-425c-bf28-f5c26cfda34f" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 10.005224202474); (11.3229166666667 : 10.005224202474 : JumpStart); (11.4895833333333 : 10.005224202474 : JumpEnd); (12 : 10.005224202474); (12 : 7.5); (13.1666666666667 : 7.5 : JumpStart); (13.3333333333333 : 7.5 : JumpEnd); (14.4166666666667 : 7.5 : JumpStart); (14.5833333333333 : 7.5 : JumpEnd); (14.75 : 7.5); (14.75 : 7.90549967447917); (16 : 7.90549967447917); (16 : 8.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitie_IstoricLocatii" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="5940a4bc-d5ee-46a8-9b68-f87b064898a0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 9.5443130061849); (11.75 : 9.5443130061849); (11.75 : 7.25); (13.1666666666667 : 7.25 : JumpStart); (13.3333333333333 : 7.25 : JumpEnd); (14.5 : 7.25); (14.5 : 8.15549967447917); (15.468748 : 8.15549967447917); (15.468748 : 8.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitie_IstoricLocatii1" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="5940a4bc-d5ee-46a8-9b68-f87b064898a0" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.5 : 10.5825512695312); (9.25 : 10.5825512695312)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/MuzeuDBDataContext/Expozitii/Expozitie_TururiGhidate" />
+      <nodes>
+        <classShapeMoniker Id="5f8d4800-e0ee-4363-bb8f-50e8992485b9" />
+        <classShapeMoniker Id="f03ac87b-e683-44a9-9215-a98372d6f811" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

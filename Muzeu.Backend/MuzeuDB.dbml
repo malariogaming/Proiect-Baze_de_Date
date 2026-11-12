@@ -11,7 +11,7 @@
       <Column Name="DataAngajarii" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="Activ" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Angajati_Vizite" Member="Vizite" ThisKey="IdAngajat" OtherKey="IdCasier" Type="Vizite" />
-      <Association Name="Angajati_Expozitii" Member="Expozitii" ThisKey="IdAngajat" OtherKey="IdCurator" Type="Expozitii" />
+      <Association Name="Angajati_Expozitie" Member="Expozitii" ThisKey="IdAngajat" OtherKey="IdCurator" Type="Expozitii" />
       <Association Name="Angajati_Restaurari" Member="Restaurari" ThisKey="IdAngajat" OtherKey="IdRestaurator" Type="Restaurari" />
       <Association Name="Angajati_TururiGhidate" Member="TururiGhidate" ThisKey="IdAngajat" OtherKey="IdGhid" Type="TururiGhidate" />
       <Association Name="Angajati_Utilizatori" Member="Utilizatori" ThisKey="IdAngajat" OtherKey="IdAngajat" Type="Utilizatori" />
@@ -54,7 +54,7 @@
       <Association Name="Artefacte_IstoricLocatii" Member="IstoricLocatii" ThisKey="IdArtefact" OtherKey="IdArtefact" Type="IstoricLocatii" />
       <Association Name="Artefacte_Restaurari" Member="Restaurari" ThisKey="IdArtefact" OtherKey="IdArtefact" Type="Restaurari" />
       <Association Name="Categorii_Artefacte" Member="Categorii" ThisKey="IdCategorie" OtherKey="IdCategorie" Type="Categorii" IsForeignKey="true" />
-      <Association Name="Expozitii_Artefacte" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+      <Association Name="Expozitie_Artefacte" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Bilete" Member="Bilete">
@@ -65,7 +65,7 @@
       <Column Name="IdExpozitie" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PretAchitat" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
       <Association Name="Vizite_Bilete" Member="Vizite" ThisKey="IdVizita" OtherKey="IdVizita" Type="Vizite" IsForeignKey="true" />
-      <Association Name="Expozitii_Bilete" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+      <Association Name="Expozitie_Bilete" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
       <Association Name="TipuriBilet_Bilete" Member="TipuriBilet" ThisKey="IdTipBilet" OtherKey="IdTipBilet" Type="TipuriBilet" IsForeignKey="true" />
     </Type>
   </Table>
@@ -97,14 +97,14 @@
       <Column Name="IdSala" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IdCurator" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="PretSuplimentar" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
-      <Association Name="Expozitii_Artefacte" Member="Artefacte" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Artefacte" />
-      <Association Name="Expozitii_Bilete" Member="Bilete" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Bilete" />
-      <Association Name="Expozitii_Feedback" Member="Feedback" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Feedback" />
-      <Association Name="Expozitii_IstoricLocatii" Member="IstoricLocatii" ThisKey="IdExpozitie" OtherKey="IdExpozitieNoua" Type="IstoricLocatii" />
-      <Association Name="Expozitii_IstoricLocatii1" Member="IstoricLocatii1" ThisKey="IdExpozitie" OtherKey="IdExpozitieVeche" Type="IstoricLocatii" />
-      <Association Name="Expozitii_TururiGhidate" Member="TururiGhidate" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="TururiGhidate" />
-      <Association Name="Angajati_Expozitii" Member="Angajati" ThisKey="IdCurator" OtherKey="IdAngajat" Type="Angajati" IsForeignKey="true" />
-      <Association Name="Sali_Expozitii" Member="Sali" ThisKey="IdSala" OtherKey="IdSala" Type="Sali" IsForeignKey="true" />
+      <Association Name="Expozitie_Artefacte" Member="Artefacte" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Artefacte" />
+      <Association Name="Expozitie_Bilete" Member="Bilete" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Bilete" />
+      <Association Name="Expozitie_Feedback" Member="Feedback" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Feedback" />
+      <Association Name="Expozitie_IstoricLocatii" Member="IstoricLocatii" ThisKey="IdExpozitie" OtherKey="IdExpozitieNoua" Type="IstoricLocatii" />
+      <Association Name="Expozitie_IstoricLocatii1" Member="IstoricLocatii1" ThisKey="IdExpozitie" OtherKey="IdExpozitieVeche" Type="IstoricLocatii" />
+      <Association Name="Expozitie_TururiGhidate" Member="TururiGhidate" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="TururiGhidate" />
+      <Association Name="Angajati_Expozitie" Member="Angajati" ThisKey="IdCurator" OtherKey="IdAngajat" Type="Angajati" IsForeignKey="true" />
+      <Association Name="Sali_Expozitie" Member="Sali" ThisKey="IdSala" OtherKey="IdSala" Type="Sali" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Feedback" Member="Feedback">
@@ -115,7 +115,7 @@
       <Column Name="Nota" Type="System.Byte" DbType="TinyInt NOT NULL" CanBeNull="false" />
       <Column Name="Comentariu" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
       <Column Name="DataFeedback" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Association Name="Expozitii_Feedback" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+      <Association Name="Expozitie_Feedback" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
       <Association Name="Vizite_Feedback" Member="Vizite" ThisKey="IdVizita" OtherKey="IdVizita" Type="Vizite" IsForeignKey="true" />
     </Type>
   </Table>
@@ -127,8 +127,8 @@
       <Column Name="IdExpozitieNoua" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="DataMutare" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Association Name="Artefacte_IstoricLocatii" Member="Artefacte" ThisKey="IdArtefact" OtherKey="IdArtefact" Type="Artefacte" IsForeignKey="true" />
-      <Association Name="Expozitii_IstoricLocatii" Member="Expozitii" ThisKey="IdExpozitieNoua" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
-      <Association Name="Expozitii_IstoricLocatii1" Member="Expozitii1" ThisKey="IdExpozitieVeche" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+      <Association Name="Expozitie_IstoricLocatii" Member="Expozitii" ThisKey="IdExpozitieNoua" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+      <Association Name="Expozitie_IstoricLocatii1" Member="Expozitii1" ThisKey="IdExpozitieVeche" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.ProgramSaptamanal" Member="ProgramSaptamanal">
@@ -159,7 +159,7 @@
       <Column Name="Etaj" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Suprafata" Type="System.Decimal" DbType="Decimal(7,2)" CanBeNull="true" />
       <Column Name="CapacitateMaxima" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Sali_Expozitii" Member="Expozitii" ThisKey="IdSala" OtherKey="IdSala" Type="Expozitii" />
+      <Association Name="Sali_Expozitie" Member="Expozitii" ThisKey="IdSala" OtherKey="IdSala" Type="Expozitii" />
     </Type>
   </Table>
   <Table Name="dbo.TipuriBilet" Member="TipuriBilet">
@@ -183,7 +183,7 @@
       <Column Name="PretSuplimentar" Type="System.Decimal" DbType="Decimal(8,2) NOT NULL" CanBeNull="false" />
       <Association Name="TururiGhidate_Vizite" Member="Vizite" ThisKey="IdTur" OtherKey="IdTur" Type="Vizite" />
       <Association Name="Angajati_TururiGhidate" Member="Angajati" ThisKey="IdGhid" OtherKey="IdAngajat" Type="Angajati" IsForeignKey="true" />
-      <Association Name="Expozitii_TururiGhidate" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
+      <Association Name="Expozitie_TururiGhidate" Member="Expozitii" ThisKey="IdExpozitie" OtherKey="IdExpozitie" Type="Expozitii" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Utilizatori" Member="Utilizatori">
