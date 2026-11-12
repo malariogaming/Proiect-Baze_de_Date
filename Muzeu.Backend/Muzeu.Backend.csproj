@@ -51,8 +51,10 @@
     <Compile Include="DTOs\FiltruArtefacte.cs" />
     <Compile Include="DTOs\ItemLista.cs" />
     <Compile Include="DTOs\MutareDto.cs" />
+    <Compile Include="DTOs\ParticipantTurDto.cs" />
     <Compile Include="DTOs\ProgramZiDto.cs" />
     <Compile Include="DTOs\RestaurareDto.cs" />
+    <Compile Include="DTOs\TurDto.cs" />
     <Compile Include="DTOs\UtilizatorAutentificatDto.cs" />
     <Compile Include="DTOs\UtilizatorDto.cs" />
     <Compile Include="Exceptions\MuzeuException.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Services\ArtefactService.cs" />
     <Compile Include="Services\ExpozitieService.cs" />
     <Compile Include="Services\ProgramService.cs" />
+    <Compile Include="Services\TurService.cs" />
     <Compile Include="Sesiune.cs" />
   </ItemGroup>
   <ItemGroup>

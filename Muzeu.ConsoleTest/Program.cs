@@ -15,10 +15,12 @@ namespace Muzeu.ConsoleTest
         {
             Console.OutputEncoding = Encoding.UTF8;   // ca să apară corect ă, ș, ț
 
+            // Comentați un apel dacă vreți să rulați doar testele pentru un singur serviciu.
             //TesteazaExpozitii();
             //TesteazaArtefacte();
             //TesteazaProgram();
-            TesteazaAngajati();
+            //TesteazaAngajati();
+            TesteazaTururi();
 
             Console.WriteLine("\nGata. Apasă o tastă...");
             Console.ReadKey();
@@ -531,6 +533,218 @@ namespace Muzeu.ConsoleTest
             Console.WriteLine($"  Logat: {u.NumeAfisat} ({u.NumeUtilizator}), rol {u.Rol}");
             Console.WriteLine($"  AreRol(Ghid) = {Sesiune.AreRol(RoluriUtilizator.Ghid)}, " +
                               $"AreRol(Admin) = {Sesiune.AreRol(RoluriUtilizator.Admin)}");
+        }
+
+        // =====================================================================
+        // TESTE TurService
+        // =====================================================================
+        static void TesteazaTururi()
+        {
+            var service = new TurService();
+            var programService = new ProgramService();
+            var tururiTest = new List<int>();
+            var viziteTest = new List<int>();
+
+            // O zi de marți (program 10:00-18:00) peste cel puțin o săptămână, care nu e excepție.
+            // Calculată față de azi, ca testul să meargă oricând e rulat.
+            DateTime zi = DateTime.Today.AddDays(7);
+            while (zi.DayOfWeek != DayOfWeek.Tuesday || programService.GetProgramPentruData(zi).EsteExceptie)
+                zi = zi.AddDays(1);
+
+            const int idGhid = 3;   // Dumitru Elena
+
+            try
+            {
+                Titlu("T1. Tururi viitoare");
+                var viitoare = service.GetTururiViitoare();
+                Afiseaza(viitoare);
+
+                Titlu("T2. Participanții la primul tur viitor");
+                if (viitoare.Count > 0)
+                    Afiseaza(service.GetParticipanti(viitoare[0].IdTur));
+                else
+                    Console.WriteLine("  (nu există tururi viitoare)");
+
+                Titlu($"T3. Liste pentru formular (ziua de test: marți {zi:dd.MM.yyyy})");
+                Console.WriteLine("  Limbi:              " + string.Join(", ", TurService.LimbiUzuale));
+                Console.WriteLine("  Expoziții deschise: " + string.Join(", ", service.GetExpozitiiDeschise(zi)));
+                Console.WriteLine("  Ghizi liberi 11:00: " + string.Join(", ", service.GetGhiziDisponibili(zi.AddHours(11), 60)));
+
+                Titlu("T4. Adăugare validă: marți 11:00, 60 min, maximum 10 persoane");
+                int idTur = service.Adauga(new TururiGhidate
+                {
+                    IdExpozitie = 1,
+                    IdGhid = idGhid,
+                    DataOraInceput = zi.AddHours(11),
+                    DurataMinute = 60,
+                    Limba = "Romana",
+                    NrMaximParticipanti = 10,
+                    PretSuplimentar = 15
+                });
+                tururiTest.Add(idTur);
+                Afiseaza(service.GetDetalii(idTur));
+
+                Titlu("T5. Adăugare cu date greșite (trebuie respinsă)");
+                AsteaptaEroare(() => service.Adauga(new TururiGhidate
+                {
+                    IdExpozitie = 99,                       // nu există
+                    IdGhid = 2,                             // Ionescu Maria e curator, nu ghid
+                    DataOraInceput = DateTime.Today.AddDays(-1).AddHours(11),
+                    DurataMinute = 5,
+                    Limba = " ",
+                    NrMaximParticipanti = 0,
+                    PretSuplimentar = -5
+                }));
+
+                Titlu("T6. Mai mulți participanți decât încap în sală (trebuie respinsă)");
+                AsteaptaEroare(() => service.Adauga(new TururiGhidate
+                {
+                    IdExpozitie = 2,                        // Sala de Arta Veche: 60 de locuri
+                    IdGhid = idGhid,
+                    DataOraInceput = zi.AddHours(15),
+                    DurataMinute = 60,
+                    Limba = "Engleza",
+                    NrMaximParticipanti = 70
+                }));
+
+                Titlu("T7. În afara programului (trebuie respinse)");
+                AsteaptaEroare(() => service.Adauga(new TururiGhidate
+                {
+                    IdExpozitie = 1,
+                    IdGhid = idGhid,
+                    DataOraInceput = zi.AddHours(17.5),
+                    DurataMinute = 60,
+                    Limba = "Romana",
+                    NrMaximParticipanti = 10      // 17:30-18:30, se închide la 18:00
+                }));
+                AsteaptaEroare(() => service.Adauga(new TururiGhidate
+                {
+                    IdExpozitie = 1,
+                    IdGhid = idGhid,
+                    DataOraInceput = zi.AddDays(-1).AddHours(11),
+                    DurataMinute = 60,
+                    Limba = "Romana",
+                    NrMaximParticipanti = 10      // luni: închis
+                }));
+
+                Titlu("T8. Ghid ocupat: alt tur la 11:30 cu același ghid (trebuie respinsă)");
+                AsteaptaEroare(() => service.Adauga(new TururiGhidate
+                {
+                    IdExpozitie = 2,
+                    IdGhid = idGhid,
+                    DataOraInceput = zi.AddHours(11.5),
+                    DurataMinute = 45,
+                    Limba = "Engleza",
+                    NrMaximParticipanti = 10
+                }));
+                Console.WriteLine("  Ghizi liberi la 11:30: " + string.Join(", ", service.GetGhiziDisponibili(zi.AddHours(11.5), 45)) +
+                                  "  (așteptat: niciunul)");
+                Console.WriteLine("  Ghizi liberi la 14:00: " + string.Join(", ", service.GetGhiziDisponibili(zi.AddHours(14), 45)));
+
+                Titlu("T9. O rezervare de test de 8 persoane (adăugată direct în bază)");
+                viziteTest.Add(AdaugaRezervareTest(idTur, zi.AddHours(11), 8));
+                Afiseaza(service.GetDetalii(idTur));
+
+                Titlu("T10. Modificare: maximum 5 persoane + altă expoziție (trebuie respinsă)");
+                var deModificat = service.GetById(idTur);
+                deModificat.NrMaximParticipanti = 5;
+                deModificat.IdExpozitie = 2;
+                AsteaptaEroare(() => service.Modifica(deModificat));
+
+                Titlu("T11. Modificare: ora 14:00, maximum 12 persoane (rezervarea se mută și ea)");
+                deModificat = service.GetById(idTur);
+                deModificat.DataOraInceput = zi.AddHours(14);
+                deModificat.NrMaximParticipanti = 12;
+                service.Modifica(deModificat);
+                Afiseaza(service.GetDetalii(idTur));
+                Afiseaza(service.GetParticipanti(idTur));
+
+                Titlu("T12. Anularea turului");
+                int anulate = service.AnuleazaTur(idTur, "ghid indisponibil");
+                Console.WriteLine($"  OK: {anulate} rezervare(ări) anulată(e)");
+                using (var db = DbFactory.Create())
+                {
+                    var v = db.Vizite.Single(x => x.IdVizita == viziteTest[0]);
+                    Console.WriteLine($"  Rezervarea {v.IdVizita}: status = {v.Status}, IdTur = {(v.IdTur?.ToString() ?? "null")}");
+                    Console.WriteLine($"  Observații: {v.Observatii}");
+                }
+
+                Titlu("T13. Turul anulat nu mai există (trebuie respinsă)");
+                AsteaptaEroare(() => service.GetDetalii(idTur));
+            }
+            finally
+            {
+                StergeDateTestTururi(tururiTest, viziteTest);
+                Console.WriteLine("\n  (tururile și rezervările de test au fost șterse din bază)");
+            }
+        }
+
+        /// <summary>Adaugă direct în bază o rezervare la un tur (până avem VanzareService). Doar pentru teste!</summary>
+        static int AdaugaRezervareTest(int idTur, DateTime dataTur, int nrPersoane)
+        {
+            using (var db = DbFactory.Create())
+            {
+                var vizita = new Vizite
+                {
+                    IdVizitator = 1,
+                    DataVizita = dataTur,
+                    IdTur = idTur,
+                    IdCasier = null,
+                    Status = StatusuriVizita.Rezervata,
+                    DataCreare = DateTime.Now,
+                    Observatii = "rezervare de test"
+                };
+                db.Vizite.InsertOnSubmit(vizita);
+                db.SubmitChanges();
+
+                for (int i = 0; i < nrPersoane; i++)
+                    db.Bilete.InsertOnSubmit(new Bilete { IdVizita = vizita.IdVizita, IdTipBilet = 1, PretAchitat = 45 });
+                db.SubmitChanges();
+
+                return vizita.IdVizita;
+            }
+        }
+
+        static void StergeDateTestTururi(List<int> tururi, List<int> vizite)
+        {
+            using (var db = DbFactory.Create())
+            {
+                db.Bilete.DeleteAllOnSubmit(db.Bilete.Where(b => vizite.Contains(b.IdVizita)));
+                db.SubmitChanges();
+
+                db.Vizite.DeleteAllOnSubmit(db.Vizite.Where(v => vizite.Contains(v.IdVizita)));
+                db.SubmitChanges();
+
+                db.TururiGhidate.DeleteAllOnSubmit(db.TururiGhidate.Where(t => tururi.Contains(t.IdTur)));
+                db.SubmitChanges();
+            }
+        }
+
+        static void Afiseaza(List<TurDto> tururi)
+        {
+            foreach (var t in tururi)
+                Afiseaza(t);
+
+            if (tururi.Count == 0)
+                Console.WriteLine("  (niciun rezultat)");
+        }
+
+        static void Afiseaza(TurDto t)
+        {
+            Console.WriteLine(
+                $"  [{t.IdTur}] {t.Interval} | {t.Expozitie} | ghid: {t.Ghid} | {t.Limba} | " +
+                $"{t.NrParticipanti}/{t.NrMaximParticipanti} ocupate, {t.LocuriLibere} libere | +{t.PretSuplimentar} lei");
+        }
+
+        static void Afiseaza(List<ParticipantTurDto> participanti)
+        {
+            foreach (var p in participanti)
+                Console.WriteLine(
+                    $"  vizita {p.IdVizita} | {p.Vizitator} | {p.Telefon ?? "-"} | {p.NrPersoane} pers. | " +
+                    $"{p.Status} | data vizitei: {p.DataVizita:dd.MM.yyyy HH:mm}");
+
+            if (participanti.Count == 0)
+                Console.WriteLine("  (niciun rezultat)");
         }
 
         static void Afiseaza(List<ProgramZiDto> zile)
