@@ -50,6 +50,7 @@
     <Compile Include="DTOs\FiltruArtefacte.cs" />
     <Compile Include="DTOs\ItemLista.cs" />
     <Compile Include="DTOs\MutareDto.cs" />
+    <Compile Include="DTOs\ProgramZiDto.cs" />
     <Compile Include="DTOs\RestaurareDto.cs" />
     <Compile Include="Exceptions\MuzeuException.cs" />
     <Compile Include="MuzeuDB.designer.cs">
@@ -65,6 +66,7 @@
     </Compile>
     <Compile Include="Services\ArtefactService.cs" />
     <Compile Include="Services\ExpozitieService.cs" />
+    <Compile Include="Services\ProgramService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

@@ -14,10 +14,12 @@ namespace Muzeu.ConsoleTest
     {
         static void Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.UTF8;   // pentru diacritice
+            Console.OutputEncoding = Encoding.UTF8;   // ca să apară corect ă, ș, ț
 
+            // Comentați un apel dacă vreți să rulați doar testele pentru un singur serviciu.
             TesteazaExpozitii();
             TesteazaArtefacte();
+            TesteazaProgram();
 
             Console.WriteLine("\nGata. Apasă o tastă...");
             Console.ReadKey();
@@ -189,8 +191,173 @@ namespace Muzeu.ConsoleTest
             }
         }
 
+        // =====================================================================
+        // TESTE ProgramService
+        // =====================================================================
+        static void TesteazaProgram()
+        {
+            var service = new ProgramService();
+
+            // Păstrăm programul inițial ca să-l putem reface la final, orice s-ar întâmpla.
+            var programInitial = service.GetProgramSaptamanal();
+            var exceptiiDeSters = new List<int>();
+
+            try
+            {
+                Titlu("P1. Programul săptămânal");
+                Afiseaza(programInitial);
+
+                Titlu("P2. Programul între 28.11.2026 și 03.12.2026 (1 decembrie e excepție)");
+                Afiseaza(service.GetProgramPerioada(new DateTime(2026, 11, 28), new DateTime(2026, 12, 3)));
+
+                Titlu("P3. EsteDeschis (funcția SQL) comparat cu programul calculat în C#");
+                var momente = new[]
+                {
+                    new DateTime(2026, 11, 17, 12, 0, 0),   // marți la prânz           -> deschis
+                    new DateTime(2026, 11, 17, 18, 0, 0),   // marți fix la 18:00        -> închis (se închide la 18)
+                    new DateTime(2026, 11, 19, 19, 30, 0),  // joi seara (program la 20) -> deschis
+                    new DateTime(2026, 11, 16, 12, 0, 0),   // luni                      -> închis
+                    new DateTime(2026, 12, 1, 12, 0, 0),    // 1 Decembrie (excepție)    -> închis
+                    new DateTime(2027, 5, 15, 12, 0, 0),    // Noaptea Muzeelor, prânz   -> închis (excepția e 18:00-23:59)
+                    new DateTime(2027, 5, 15, 22, 0, 0)     // Noaptea Muzeelor, seara   -> deschis
+                };
+                foreach (var m in momente)
+                {
+                    bool dinSql = service.EsteDeschis(m);
+                    var p = service.GetProgramPentruData(m);
+                    bool dinCSharp = !p.Inchis && m.TimeOfDay >= p.OraDeschidere && m.TimeOfDay < p.OraInchidere;
+
+                    Console.WriteLine(
+                        $"  {p.NumeZi,-9} {m:dd.MM.yyyy HH:mm} | SQL: {(dinSql ? "deschis" : "închis"),-7} | " +
+                        $"C#: {(dinCSharp ? "deschis" : "închis"),-7} | {(dinSql == dinCSharp ? "OK" : "DIFERIT!")}");
+                }
+
+                Titlu("P4. EsteDeschisIntre (pentru tururi)");
+                Console.WriteLine("  Duminică 15.11 14:00-14:45: " +
+                    service.EsteDeschisIntre(new DateTime(2026, 11, 15, 14, 0, 0), new DateTime(2026, 11, 15, 14, 45, 0)) +
+                    "  (așteptat True)");
+                Console.WriteLine("  Duminică 15.11 16:30-17:15: " +
+                    service.EsteDeschisIntre(new DateTime(2026, 11, 15, 16, 30, 0), new DateTime(2026, 11, 15, 17, 15, 0)) +
+                    "  (așteptat False: se închide la 17:00)");
+
+                Titlu("P5. Următoarea zi deschisă după luni 16.11.2026");
+                Console.WriteLine($"  {service.UrmatoareaZiDeschisa(new DateTime(2026, 11, 16)):dd.MM.yyyy}  (așteptat 17.11.2026)");
+
+                Titlu("P6. ParseazaOra");
+                Console.WriteLine($"  \"9:30\" -> {ProgramService.ParseazaOra("9:30")}");
+                AsteaptaEroare(() => ProgramService.ParseazaOra("25:00"));
+                AsteaptaEroare(() => ProgramService.ParseazaOra("abc"));
+
+                Titlu("P7. Deschidem lunea 10:00-16:00");
+                service.ModificaZi(1, false, new TimeSpan(10, 0, 0), new TimeSpan(16, 0, 0));
+                Afiseaza(new List<ProgramZiDto> { service.GetProgramSaptamanal()[0] });
+
+                Titlu("P8. Ore inversate (trebuie respinsă)");
+                AsteaptaEroare(() => service.ModificaZi(1, false, new TimeSpan(16, 0, 0), new TimeSpan(10, 0, 0)));
+
+                // Pentru P9 și P13 avem nevoie de un tur ghidat viitor (citit direct din bază, doar în test).
+                DateTime? urmatorulTur;
+                using (var db = DbFactory.Create())
+                {
+                    urmatorulTur = db.TururiGhidate
+                        .Where(t => t.DataOraInceput >= DateTime.Now)
+                        .OrderBy(t => t.DataOraInceput)
+                        .Select(t => (DateTime?)t.DataOraInceput)
+                        .FirstOrDefault();
+                }
+
+                Titlu("P9. Închidem ziua în care există un tur ghidat (trebuie respinsă)");
+                if (urmatorulTur.HasValue)
+                {
+                    byte ziTur = ProgramService.ZiSaptamanaDin(urmatorulTur.Value);
+                    Console.WriteLine($"  (încercăm să închidem {ProgramService.NumeZi(ziTur)}; tur pe {urmatorulTur:dd.MM.yyyy HH:mm})");
+                    AsteaptaEroare(() => service.ModificaZi(ziTur, true, null, null));
+                }
+                else
+                {
+                    Console.WriteLine("  (sărit: nu există tururi viitoare în bază)");
+                }
+
+                Titlu("P10. Adăugare excepție: 01.01.2027 închis");
+                int idExceptie = service.AdaugaExceptie(new ExceptiiProgram
+                {
+                    Data = new DateTime(2027, 1, 1),
+                    Inchis = true,
+                    Motiv = "Anul Nou"
+                });
+                exceptiiDeSters.Add(idExceptie);
+                Afiseaza(new List<ProgramZiDto> { service.GetProgramPentruData(new DateTime(2027, 1, 1)) });
+
+                Titlu("P11. Excepție duplicat + date greșite (trebuie respinse)");
+                AsteaptaEroare(() => service.AdaugaExceptie(new ExceptiiProgram
+                {
+                    Data = new DateTime(2027, 1, 1),
+                    Inchis = true,
+                    Motiv = "Duplicat"
+                }));
+                AsteaptaEroare(() => service.AdaugaExceptie(new ExceptiiProgram
+                {
+                    Data = new DateTime(2025, 1, 1),
+                    Inchis = false,
+                    OraDeschidere = new TimeSpan(15, 0, 0),
+                    OraInchidere = new TimeSpan(9, 0, 0),
+                    Motiv = "  "
+                }));
+
+                Titlu("P12. Modificare excepție: 01.01.2027 program redus 12:00-16:00");
+                service.ModificaExceptie(new ExceptiiProgram
+                {
+                    IdExceptie = idExceptie,
+                    Data = new DateTime(2027, 1, 1),
+                    Inchis = false,
+                    OraDeschidere = new TimeSpan(12, 0, 0),
+                    OraInchidere = new TimeSpan(16, 0, 0),
+                    Motiv = "Anul Nou - program redus"
+                });
+                Afiseaza(service.GetExceptii());
+
+                Titlu("P13. Excepție de închidere în ziua unui tur ghidat (trebuie respinsă)");
+                if (urmatorulTur.HasValue)
+                {
+                    AsteaptaEroare(() => exceptiiDeSters.Add(service.AdaugaExceptie(new ExceptiiProgram
+                    {
+                        Data = urmatorulTur.Value.Date,
+                        Inchis = true,
+                        Motiv = "Test închidere"
+                    })));
+                }
+                else
+                {
+                    Console.WriteLine("  (sărit: nu există tururi viitoare în bază)");
+                }
+            }
+            finally
+            {
+                // Curățenie: ștergem excepțiile de test și refacem programul inițial.
+                foreach (int id in exceptiiDeSters)
+                    service.StergeExceptie(id);
+
+                foreach (var zi in programInitial)
+                    service.ModificaZi(zi.ZiSaptamana, zi.Inchis, zi.OraDeschidere, zi.OraInchidere);
+
+                Console.WriteLine("\n  (programul inițial a fost refăcut, excepțiile de test au fost șterse)");
+            }
+        }
+
+        static void Afiseaza(List<ProgramZiDto> zile)
+        {
+            foreach (var z in zile)
+                Console.WriteLine(
+                    $"  {z.NumeZi,-9} {(z.Data.HasValue ? z.Data.Value.ToString("dd.MM.yyyy") : ""),-10} {z.Ore,-13}" +
+                    (z.EsteExceptie ? $" (excepție: {z.Motiv})" : ""));
+
+            if (zile.Count == 0)
+                Console.WriteLine("  (niciun rezultat)");
+        }
+
         /// <summary>
-        /// Curatenie dupa test
+        /// Curățenie după test: șterge direct din bază artefactul de test cu tot istoricul lui.
+        /// Doar pentru teste! În aplicație ștergerea trece prin ArtefactService.Sterge.
         /// </summary>
         static void StergeArtefactDeTest(int idArtefact)
         {
@@ -210,7 +377,7 @@ namespace Muzeu.ConsoleTest
         }
 
         // =====================================================================
-        // AFISARE
+        // AFIȘARE
         // =====================================================================
         static void Titlu(string text)
         {
@@ -256,7 +423,7 @@ namespace Muzeu.ConsoleTest
                 Console.WriteLine("  (niciun rezultat)");
         }
 
-        /// <summary>Ruleaza o actiune care TREBUIE sa arunce MuzeuException și afiseaza mesajul.</summary>
+        /// <summary>Rulează o acțiune care TREBUIE să arunce MuzeuException și afișează mesajul.</summary>
         static void AsteaptaEroare(Action actiune)
         {
             try
