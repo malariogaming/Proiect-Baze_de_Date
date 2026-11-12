@@ -45,8 +45,12 @@
   <ItemGroup>
     <Compile Include="Constante.cs" />
     <Compile Include="DbFactory.cs" />
+    <Compile Include="DTOs\ArtefactDto.cs" />
     <Compile Include="DTOs\ExpozitieDto.cs" />
+    <Compile Include="DTOs\FiltruArtefacte.cs" />
     <Compile Include="DTOs\ItemLista.cs" />
+    <Compile Include="DTOs\MutareDto.cs" />
+    <Compile Include="DTOs\RestaurareDto.cs" />
     <Compile Include="Exceptions\MuzeuException.cs" />
     <Compile Include="MuzeuDB.designer.cs">
       <AutoGen>True</AutoGen>
@@ -59,6 +63,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\ArtefactService.cs" />
     <Compile Include="Services\ExpozitieService.cs" />
   </ItemGroup>
   <ItemGroup>

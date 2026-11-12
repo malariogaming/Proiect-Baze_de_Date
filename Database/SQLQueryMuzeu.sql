@@ -426,7 +426,7 @@ INSERT INTO Feedback (IdVizita, IdExpozitie, Nota, Comentariu, DataFeedback) VAL
 (1, 3, 4, N'Ceramica superba, ar fi utile mai multe explicatii.', '2026-10-05 16:05');
 
 -- Test trigger: mutam figurina din depozit in expozitia temporara (apare in IstoricLocatii)
-UPDATE Artefacte SET IdExpozitie = 3 WHERE CodInventar = 'INV-0007';
+UPDATE Artefacte SET IdExpozitie = 1 WHERE CodInventar = 'INV-0008';
 GO
 
 SELECT * FROM IstoricLocatii
