@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Muzeu.Backend;
 using Muzeu.Backend.DTOs;
 using Muzeu.Backend.Exceptions;
@@ -16,10 +15,10 @@ namespace Muzeu.ConsoleTest
         {
             Console.OutputEncoding = Encoding.UTF8;   // ca să apară corect ă, ș, ț
 
-            // Comentați un apel dacă vreți să rulați doar testele pentru un singur serviciu.
-            TesteazaExpozitii();
-            TesteazaArtefacte();
-            TesteazaProgram();
+            //TesteazaExpozitii();
+            //TesteazaArtefacte();
+            //TesteazaProgram();
+            TesteazaAngajati();
 
             Console.WriteLine("\nGata. Apasă o tastă...");
             Console.ReadKey();
@@ -342,6 +341,196 @@ namespace Muzeu.ConsoleTest
 
                 Console.WriteLine("\n  (programul inițial a fost refăcut, excepțiile de test au fost șterse)");
             }
+        }
+
+        // =====================================================================
+        // TESTE AngajatService
+        // =====================================================================
+        static void TesteazaAngajati()
+        {
+            var service = new AngajatService();
+            int idAngajatTest = 0;
+
+            try
+            {
+                // ---------------- ANGAJAȚI ----------------
+                Titlu("G1. Angajații activi");
+                Afiseaza(service.GetAngajati());
+
+                Titlu("G2. Doar ghizii");
+                Afiseaza(service.GetAngajati(FunctiiAngajat.Ghid));
+
+                Titlu("G3. Adăugare validă (email cu spații și majuscule, fără dată de angajare)");
+                idAngajatTest = service.AdaugaAngajat(new Angajati
+                {
+                    Nume = "Test",
+                    Prenume = "Ghid",
+                    Functie = FunctiiAngajat.Ghid,
+                    Email = "  Test.Ghid@Muzeu.ro ",
+                    Telefon = "0722 000 999"
+                });
+                Afiseaza(service.GetAngajati().Where(a => a.IdAngajat == idAngajatTest).ToList());
+
+                Titlu("G4. Adăugare cu date greșite (trebuie respinsă)");
+                AsteaptaEroare(() => service.AdaugaAngajat(new Angajati
+                {
+                    Nume = "",
+                    Prenume = "X",
+                    Functie = "Director",                   // nu e o funcție permisă
+                    Email = "maria.ionescu@muzeu.ro",       // folosit deja de Ionescu Maria
+                    Telefon = "abc",
+                    DataAngajarii = DateTime.Today.AddDays(10)
+                }));
+
+                Titlu("G5. Modificare telefon");
+                var deModificat = service.GetAngajatById(idAngajatTest);
+                deModificat.Telefon = "0733 111 222";
+                service.ModificaAngajat(deModificat);
+                Afiseaza(service.GetAngajati().Where(a => a.IdAngajat == idAngajatTest).ToList());
+
+                Titlu("G6. Schimbarea funcției pentru curatorul Ionescu Maria (trebuie respinsă)");
+                var curator = service.GetAngajatById(2);
+                curator.Functie = FunctiiAngajat.Ghid;
+                AsteaptaEroare(() => service.ModificaAngajat(curator));
+
+                Titlu("G7. Dezactivarea lui Ionescu Maria (trebuie respinsă)");
+                AsteaptaEroare(() => service.DezactiveazaAngajat(2));
+
+                Titlu("G8. Ștergerea lui Ionescu Maria (trebuie respinsă: are istoric)");
+                AsteaptaEroare(() => service.StergeAngajat(2));
+
+                // ---------------- CONTURI ----------------
+                Titlu("U1. Primul cont de Admin");
+                bool existau = service.ExistaUtilizatori();
+                Console.WriteLine($"  Existau conturi înainte de test: {existau}");
+                int idAdmin = existau
+                    ? service.CreeazaCont("test_admin", "Admin123", RoluriUtilizator.Admin, null)
+                    : service.CreeazaPrimulAdmin("test_admin", "Admin123");
+                Console.WriteLine($"  OK: test_admin creat cu Id = {idAdmin}");
+                Console.WriteLine("  Încă un 'prim admin' (trebuie respins):");
+                AsteaptaEroare(() => service.CreeazaPrimulAdmin("test_altul", "Admin123"));
+
+                Titlu("U2. Cont pentru angajatul de test");
+                int idContGhid = service.CreeazaCont("Test_Ghid", "Ghid2026", RoluriUtilizator.Ghid, idAngajatTest);
+                Console.WriteLine($"  OK: cont creat cu Id = {idContGhid}");
+
+                Titlu("U3. Conturi cu date greșite (trebuie respinse)");
+                AsteaptaEroare(() => service.CreeazaCont("a b", "123", "Sef", 999));
+                AsteaptaEroare(() => service.CreeazaCont("TEST_ADMIN", "Parola1", RoluriUtilizator.Casier, idAngajatTest));
+
+                Titlu("U4. Lista conturilor");
+                Afiseaza(service.GetUtilizatori());
+
+                Titlu("U5. Login corect (nume scris cu majuscule și spațiu)");
+                service.Login(" Test_Ghid", "Ghid2026");
+                AfiseazaSesiune();
+
+                Titlu("U6. Login greșit (trebuie respins, cu același mesaj în ambele cazuri)");
+                AsteaptaEroare(() => service.Login("test_ghid", "parolagresita1"));
+                AsteaptaEroare(() => service.Login("nu_exista", "Ghid2026"));
+
+                Titlu("U7. Schimbare parolă");
+                AsteaptaEroare(() => service.SchimbaParola(idContGhid, "gresita1", "GhidNou2026"));
+                service.SchimbaParola(idContGhid, "Ghid2026", "GhidNou2026");
+                service.Login("test_ghid", "GhidNou2026");
+                Console.WriteLine("  OK: login cu parola nouă");
+
+                Titlu("U8. Resetare parolă de către Admin");
+                service.ReseteazaParola(idContGhid, "Resetata99");
+                service.Login("test_ghid", "Resetata99");
+                Console.WriteLine("  OK: login cu parola resetată");
+
+                Titlu("U9. Hash-ul salvat în baza de date pentru parola 'admin123'");
+                Console.WriteLine("  " + AngajatService.CalculeazaHash("admin123"));
+
+                Titlu("U10. Dezactivarea angajatului de test (îi dezactivează și contul)");
+                service.DezactiveazaAngajat(idAngajatTest);
+                Afiseaza(service.GetAngajati(includeInactivi: true).Where(a => a.IdAngajat == idAngajatTest).ToList());
+                AsteaptaEroare(() => service.Login("test_ghid", "Resetata99"));
+                Console.WriteLine("  Reactivare cont cât timp angajatul e inactiv (trebuie respinsă):");
+                AsteaptaEroare(() => service.ReactiveazaCont(idContGhid));
+                service.ReactiveazaAngajat(idAngajatTest);
+                service.ReactiveazaCont(idContGhid);
+                service.Login("test_ghid", "Resetata99");
+                Console.WriteLine("  OK: după reactivare, login-ul merge din nou");
+
+                Titlu("U11. Ultimul Admin activ");
+                int adminiActivi = service.GetUtilizatori().Count(u => u.Rol == RoluriUtilizator.Admin && u.Activ);
+                if (adminiActivi == 1)
+                {
+                    AsteaptaEroare(() => service.DezactiveazaCont(idAdmin));
+                    AsteaptaEroare(() => service.SchimbaRol(idAdmin, RoluriUtilizator.Casier));
+                }
+                else
+                {
+                    Console.WriteLine($"  (sărit: există {adminiActivi} conturi de Admin active)");
+                }
+
+                Titlu("U12. Delogare");
+                service.Delogare();
+                AfiseazaSesiune();
+            }
+            finally
+            {
+                StergeDateTestAngajati(idAngajatTest);
+                Console.WriteLine("\n  (conturile test_* și angajatul de test au fost șterse din bază)");
+            }
+        }
+
+        /// <summary>Curățenie după test: conturile test_* și angajatul de test, direct din bază.</summary>
+        static void StergeDateTestAngajati(int idAngajat)
+        {
+            new AngajatService().Delogare();
+
+            using (var db = DbFactory.Create())
+            {
+                db.Utilizatori.DeleteAllOnSubmit(db.Utilizatori.Where(u => u.NumeUtilizator.StartsWith("test_")));
+                db.SubmitChanges();
+
+                var angajat = db.Angajati.SingleOrDefault(a => a.IdAngajat == idAngajat);
+                if (angajat != null)
+                {
+                    db.Angajati.DeleteOnSubmit(angajat);
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+        static void Afiseaza(List<AngajatDto> angajati)
+        {
+            foreach (var a in angajati)
+                Console.WriteLine(
+                    $"  [{a.IdAngajat}] {a.NumeComplet} | {a.Functie} | {a.Email ?? "-"} | {a.Telefon ?? "-"} | " +
+                    $"din {a.DataAngajarii:dd.MM.yyyy} | {(a.Activ ? "activ" : "INACTIV")} | cont: {a.NumeUtilizator ?? "-"}");
+
+            if (angajati.Count == 0)
+                Console.WriteLine("  (niciun rezultat)");
+        }
+
+        static void Afiseaza(List<UtilizatorDto> utilizatori)
+        {
+            foreach (var u in utilizatori)
+                Console.WriteLine(
+                    $"  [{u.IdUtilizator}] {u.NumeUtilizator} | {u.Rol} | {(u.Activ ? "activ" : "INACTIV")} | " +
+                    $"angajat: {u.NumeAngajat ?? "-"} | ultima autentificare: " +
+                    (u.UltimaAutentificare.HasValue ? u.UltimaAutentificare.Value.ToString("dd.MM.yyyy HH:mm") : "niciodată"));
+
+            if (utilizatori.Count == 0)
+                Console.WriteLine("  (niciun rezultat)");
+        }
+
+        static void AfiseazaSesiune()
+        {
+            if (!Sesiune.EsteAutentificat)
+            {
+                Console.WriteLine("  Nimeni nu e logat.");
+                return;
+            }
+
+            var u = Sesiune.UtilizatorCurent;
+            Console.WriteLine($"  Logat: {u.NumeAfisat} ({u.NumeUtilizator}), rol {u.Rol}");
+            Console.WriteLine($"  AreRol(Ghid) = {Sesiune.AreRol(RoluriUtilizator.Ghid)}, " +
+                              $"AreRol(Admin) = {Sesiune.AreRol(RoluriUtilizator.Admin)}");
         }
 
         static void Afiseaza(List<ProgramZiDto> zile)
